@@ -1,0 +1,57 @@
+class Library():
+
+    list_of_books = ['Da Vinci Code', 'Game Of Thrones', 'Harry Potter', 'Man Of Steel']
+    Rent_out = []
+
+    def __init__(self,library_name):
+        self.lname = library_name
+
+
+
+    @classmethod
+    def add_books(cls,string):
+        cls.list_of_books.append(string)
+
+
+    @property
+    def book_list(self):
+        return f'Welcome {self.lname}\nAvailable Books\n{self.list_of_books}\nRented out Books\n{self.Rent_out}'
+    @classmethod
+    def book_return(cls,string):
+        if string.title() in cls.Rent_out:
+            return cls.Rent_out.remove(string.title()),cls.list_of_books.append(string.title()),'Book Returned Successfully'
+        else:
+            return 'Book Not in list'
+
+
+    @classmethod
+    def rent(cls,string):
+        if string.title() in cls.list_of_books:
+            return cls.list_of_books.remove(string.title()),cls.Rent_out.append(string.title()),'Book Successfully rented out'
+        else:
+            return 'Book Not in list'
+
+
+username = input('Enter Your Name\t').title()
+while True:
+
+    choice = input('To Avail the list of Books Enter 1\nTo Rent a Book Enter 2\nTo Add a Book To Our Collection enter 3\nTo Return a Book Enter 4')
+    User_Class = Library(username)
+    if choice in '1':
+        print(User_Class.book_list)
+    elif choice in '2':
+        choice2 = input('Enter The Name Of Book You Want To Rent Out').title()
+        User_Class.rent(choice2)
+    elif choice in '3':
+        choice3 = input('Enter The Book You Want To Add').title()
+        User_Class.add_books(choice3)
+    elif choice in '4':
+        choice4 = input('Enter The Book You Want To Return').title()
+        User_Class.book_return(choice4)
+    final_choice = input('Do you want to continue? Y/N').capitalize()
+    if final_choice in 'Y':
+        continue
+    elif final_choice in 'N':
+        break
+    else:
+        print('-Invalid Input-\nTry Again')
